@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import CheckIcon from '@mui/icons-material/Check';
+
 import { withSearch } from '../HOC/withSearch';
 
 import { reducer } from "../Reducer/ResultReducer";
@@ -256,7 +258,7 @@ function SearchResult(props: Props) {
           <Skeleton />
           <Skeleton animation="wave" />
           <Skeleton animation={false} />
-        </Box> : totalResults > 0 ? <WrappedTable /> : <h1>No Data Found</h1>}
+        </Box> : totalResults > 0 ? <WrappedTable /> : <Alert icon={<CheckIcon fontSize="inherit" />} severity="success"> No data found. </Alert>}
     </Paper>
   );
 }
