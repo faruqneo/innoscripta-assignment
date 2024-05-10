@@ -243,7 +243,7 @@ function SearchResult(props: Props) {
       /></>)
   };
 
-  const WrappedTable = withSearch(TableStructure, rows, dataSources);
+  const FilterizeTable = withSearch(TableStructure, rows, dataSources);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -255,7 +255,7 @@ function SearchResult(props: Props) {
           <Skeleton />
           <Skeleton animation="wave" />
           <Skeleton animation={false} />
-        </Box> : totalResults > 0 ? <WrappedTable /> : <Alert icon={<CheckIcon fontSize="inherit" />} severity="success"> No data found. </Alert>}
+        </Box> : totalResults > 0 ? <FilterizeTable /> : <Alert icon={<CheckIcon fontSize="inherit" />} severity="success"> No data found. </Alert>}
     </Paper>
   );
 }
