@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,36 +30,36 @@ const drawerWidth = 240;
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isSearch, setIsSearch ] = useState(false);
-  const [state, setState ] = useState({});
+  const [isSearch, setIsSearch] = useState(false);
+  const [state, setState] = useState({});
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const handleSearchToggle = (data: any) => {
-    if(isSearch) {
-        setIsSearch(false);
+    if (isSearch) {
+      setIsSearch(false);
     } else {
-        setIsSearch(true);
+      setIsSearch(true);
     }
-    if(data) setState(data);
+    if (data) setState(data);
   };
 
   const drawer = (
     <>{isSearch ? <Box onClick={() => handleSearchToggle(null)} sx={{ textAlign: 'center' }}>
-    <Typography variant="h6" sx={{ my: 2 }}>
-    Personalized news feed
-    </Typography>
-    <Divider />
-    <List>
-    <ListItem disablePadding>
+      <Typography variant="h6" sx={{ my: 2 }}>
+        Personalized news feed
+      </Typography>
+      <Divider />
+      <List>
+        <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary={'Home'} onClick={() => handleSearchToggle(null)} />
           </ListItemButton>
         </ListItem>
-    </List>
-  </Box> : <></>}</>
+      </List>
+    </Box> : <></>}</>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -86,7 +86,7 @@ export default function DrawerAppBar(props: Props) {
             Personalized news feed
           </Typography>
           {isSearch && <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button sx={{ color: '#fff' }} onClick={() => handleSearchToggle(null)}>Home</Button>
+            <Button sx={{ color: '#fff' }} onClick={() => handleSearchToggle(null)}>Home</Button>
           </Box>}
         </Toolbar>
       </AppBar>
@@ -109,7 +109,7 @@ export default function DrawerAppBar(props: Props) {
       </nav>}
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-          {isSearch ? <SearchResult initState={state} /> : <PersonalizedNews search={(data) => handleSearchToggle(data)}  />}
+        {isSearch ? <SearchResult initState={state} /> : <PersonalizedNews search={(data) => handleSearchToggle(data)} />}
       </Box>
     </Box>
   );

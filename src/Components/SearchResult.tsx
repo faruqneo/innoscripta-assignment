@@ -19,8 +19,8 @@ import { articles, NewsAPICreateData, NewYorkTimesAPICreateData, newYorkTimes, t
 import { NewsAPI_Service, TheGuardian_Service, NewYorkTimes_Service } from '../Services/APIServices';
 
 interface Props {
-    initState: any;
-  }
+  initState: any;
+}
 
 function SearchResult(props: Props) {
   const { initState } = props;
@@ -30,7 +30,7 @@ function SearchResult(props: Props) {
   const [rows, setRows] = React.useState<any[]>([]);
   const [totalResults, setTotalResults] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isError, setIsError] = React.useState<any>({message: '', status: false});
+  const [isError, setIsError] = React.useState<any>({ message: '', status: false });
 
   const source: string = state.source;
   const categories: string = state.categories;
@@ -41,58 +41,58 @@ function SearchResult(props: Props) {
     setIsLoading(true);
     const serviceList: any = {};
     serviceList['NewsAPI'] = () => {
-        NewsAPI_Service(source, categories, authors, page, pageSize)
+      NewsAPI_Service(source, categories, authors, page, pageSize)
         .then(res => {
-            if(res?.status === 'ok') {
-                const array: articles[] = [];
-                if(authors !== '') res?.articles?.filter((item: articles) => item?.author?.includes(authors)).map((item: articles) => array.push(NewsAPICreateData(item?.author, item?.title, item?.description, item?.publishedAt)));
-                else res?.articles?.map((item: articles) => array.push(NewsAPICreateData(item?.author, item?.title, item?.description, item?.publishedAt)));
-                if(array.length) {
-                    setRows(array);
-                    setTotalResults(res?.totalResults);
-                } else {
-                    setIsError({message: 'No matching records found for selected author', status: true});
-                    setTimeout(() => setIsError({message: '', status: false}), 2000);
-                }
+          if (res?.status === 'ok') {
+            const array: articles[] = [];
+            if (authors !== '') res?.articles?.filter((item: articles) => item?.author?.includes(authors)).map((item: articles) => array.push(NewsAPICreateData(item?.author, item?.title, item?.description, item?.publishedAt)));
+            else res?.articles?.map((item: articles) => array.push(NewsAPICreateData(item?.author, item?.title, item?.description, item?.publishedAt)));
+            if (array.length) {
+              setRows(array);
+              setTotalResults(res?.totalResults);
             } else {
-                setIsError({message: res?.message, status: true});
-                setTimeout(() => setIsError({message: '', status: false}), 2000);
+              setIsError({ message: 'No matching records found for selected author', status: true });
+              setTimeout(() => setIsError({ message: '', status: false }), 2000);
             }
-            setIsLoading(false);
+          } else {
+            setIsError({ message: res?.message, status: true });
+            setTimeout(() => setIsError({ message: '', status: false }), 2000);
+          }
+          setIsLoading(false);
         })
         .catch();
     };
     serviceList['theguardian'] = () => {
-        TheGuardian_Service(source, categories, authors, page, pageSize)
+      TheGuardian_Service(source, categories, authors, page, pageSize)
         .then(res => {
-            const response = res?.response;
-            if(response?.status === 'ok') {
-                const array: theguardian[] = [];
-                response?.results?.map((item: any) => array.push(theguardianAPICreateData(item?.type, item?.sectionName, item?.webTitle, item?.webPublicationDate)));
-                setRows(array);
-                setTotalResults(response?.total);
-            } else {
-                setIsError({message: 'No matching records found', status: true});
-                setTimeout(() => setIsError({message: '', status: false}), 2000);
-            }
-            setIsLoading(false);
+          const response = res?.response;
+          if (response?.status === 'ok') {
+            const array: theguardian[] = [];
+            response?.results?.map((item: any) => array.push(theguardianAPICreateData(item?.type, item?.sectionName, item?.webTitle, item?.webPublicationDate)));
+            setRows(array);
+            setTotalResults(response?.total);
+          } else {
+            setIsError({ message: 'No matching records found', status: true });
+            setTimeout(() => setIsError({ message: '', status: false }), 2000);
+          }
+          setIsLoading(false);
         })
         .catch();
     };
     serviceList['nytimes'] = () => {
-        NewYorkTimes_Service(categories, page)
+      NewYorkTimes_Service(categories, page)
         .then(res => {
-            const response = res?.response;
-            if(res?.status === 'OK') {
-                const array: newYorkTimes[] = [];
-                response?.docs?.map((item: any) => array.push(NewYorkTimesAPICreateData(item?.source, item?.section_name, item?.lead_paragraph, item?.pub_date)));
-                setRows(array);
-                setTotalResults(response?.meta?.hits);
-            } else {
-                setIsError({message: res?.fault?.faultstring, status: true});
-                setTimeout(() => setIsError({message: '', status: false}), 2000);
-            }
-            setIsLoading(false);
+          const response = res?.response;
+          if (res?.status === 'OK') {
+            const array: newYorkTimes[] = [];
+            response?.docs?.map((item: any) => array.push(NewYorkTimesAPICreateData(item?.source, item?.section_name, item?.lead_paragraph, item?.pub_date)));
+            setRows(array);
+            setTotalResults(response?.meta?.hits);
+          } else {
+            setIsError({ message: res?.fault?.faultstring, status: true });
+            setTimeout(() => setIsError({ message: '', status: false }), 2000);
+          }
+          setIsLoading(false);
         })
         .catch();
     };
@@ -122,141 +122,141 @@ function SearchResult(props: Props) {
   const NewsAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-        {dataList
-          .map((row: any, index: number) => {
-            return (
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                {newsAPIColumns.map((column) => {
-                  const value = row[column?.id];
-                  return (
-                    <TableCell key={column.id} align={column.align}>{value}</TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-      </TableBody>)
-};
+      {dataList
+        .map((row: any, index: number) => {
+          return (
+            <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+              {newsAPIColumns.map((column) => {
+                const value = row[column?.id];
+                return (
+                  <TableCell key={column.id} align={column.align}>{value}</TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
+    </TableBody>)
+  };
 
   const TheGuardianAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-        {dataList
-          .map((row: any, index: number) => {
-            return (
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                {theguardianAPIColumns.map((column) => {
-                  const value = row[column?.id];
-                  return (
-                    <TableCell key={column.id} align={column.align}>{value}</TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-      </TableBody>)
-}
+      {dataList
+        .map((row: any, index: number) => {
+          return (
+            <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+              {theguardianAPIColumns.map((column) => {
+                const value = row[column?.id];
+                return (
+                  <TableCell key={column.id} align={column.align}>{value}</TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
+    </TableBody>)
+  }
 
   const NewYorkTimesAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-        {dataList
-          .map((row: any, index: number) => {
-            return (
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                {newYorkTimesAPIColumns.map((column) => {
-                  const value = row[column?.id];
-                  return (
-                    <TableCell key={column.id} align={column.align}>{value}</TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })}
-      </TableBody>)
-}
+      {dataList
+        .map((row: any, index: number) => {
+          return (
+            <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+              {newYorkTimesAPIColumns.map((column) => {
+                const value = row[column?.id];
+                return (
+                  <TableCell key={column.id} align={column.align}>{value}</TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
+    </TableBody>)
+  }
 
-const NewsAPIHeaders = () => {
+  const NewsAPIHeaders = () => {
     return (<TableRow>
-        {newsAPIColumns.map((column: NewsAPIColumn) => (
-          <TableCell
-            key={column.id}
-            align={column.align}
-            style={{ minWidth: column.minWidth }}
-          >
-            {column.label}
-          </TableCell>
-        ))}
-      </TableRow>)
-}
+      {newsAPIColumns.map((column: NewsAPIColumn) => (
+        <TableCell
+          key={column.id}
+          align={column.align}
+          style={{ minWidth: column.minWidth }}
+        >
+          {column.label}
+        </TableCell>
+      ))}
+    </TableRow>)
+  }
 
-const TheGuardianAPIHeaders = () => {
+  const TheGuardianAPIHeaders = () => {
     return (<TableRow>
-        {theguardianAPIColumns.map((column: TheGuardianColumn) => (
-          <TableCell
-            key={column.id}
-            align={column.align}
-            style={{ minWidth: column.minWidth }}
-          >
-            {column.label}
-          </TableCell>
-        ))}
-      </TableRow>)
-}
+      {theguardianAPIColumns.map((column: TheGuardianColumn) => (
+        <TableCell
+          key={column.id}
+          align={column.align}
+          style={{ minWidth: column.minWidth }}
+        >
+          {column.label}
+        </TableCell>
+      ))}
+    </TableRow>)
+  }
 
-const NewYorkTimesAPIHeaders = () => {
+  const NewYorkTimesAPIHeaders = () => {
     return (<TableRow>
-        {newYorkTimesAPIColumns.map((column: NewYorkTimesAPIColumn) => (
-          <TableCell
-            key={column.id}
-            align={column.align}
-            style={{ minWidth: column.minWidth }}
-          >
-            {column.label}
-          </TableCell>
-        ))}
-      </TableRow>)
-}
+      {newYorkTimesAPIColumns.map((column: NewYorkTimesAPIColumn) => (
+        <TableCell
+          key={column.id}
+          align={column.align}
+          style={{ minWidth: column.minWidth }}
+        >
+          {column.label}
+        </TableCell>
+      ))}
+    </TableRow>)
+  }
 
-const TableStrature = (props: any) => {
-    const {result} = props;
+  const TableStrature = (props: any) => {
+    const { result } = props;
     return (<>
-        <TableContainer sx={{ maxHeight: 550 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                {dataSources === 'NewsAPI' && <NewsAPIHeaders />}
-                {dataSources === 'theguardian' && <TheGuardianAPIHeaders />}
-                {dataSources === 'nytimes' && <NewYorkTimesAPIHeaders />}
-              </TableHead>
-                {dataSources === 'NewsAPI' && <NewsAPIValues dataList={result} />}
-                {dataSources === 'theguardian' && <TheGuardianAPIValues dataList={result} />}
-                {dataSources === 'nytimes' && <NewYorkTimesAPIValues dataList={result} />}
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={dataSources === 'nytimes' ? [] : [10, 25, 100]}
-            component="div"
-            count={totalResults}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          /></>)
-};
+      <TableContainer sx={{ maxHeight: 550 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            {dataSources === 'NewsAPI' && <NewsAPIHeaders />}
+            {dataSources === 'theguardian' && <TheGuardianAPIHeaders />}
+            {dataSources === 'nytimes' && <NewYorkTimesAPIHeaders />}
+          </TableHead>
+          {dataSources === 'NewsAPI' && <NewsAPIValues dataList={result} />}
+          {dataSources === 'theguardian' && <TheGuardianAPIValues dataList={result} />}
+          {dataSources === 'nytimes' && <NewYorkTimesAPIValues dataList={result} />}
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={dataSources === 'nytimes' ? [] : [10, 25, 100]}
+        component="div"
+        count={totalResults}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      /></>)
+  };
 
-const WrappedTable = withSearch(TableStrature, rows, dataSources);
+  const WrappedTable = withSearch(TableStrature, rows, dataSources);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       {isError?.status && <Stack sx={{ width: '100%' }} spacing={2}>
-      <Alert severity="error">{isError?.message}</Alert>
-    </Stack>}
+        <Alert severity="error">{isError?.message}</Alert>
+      </Stack>}
       {isLoading ?
-      <Box sx={{ width: 300 }}>
-      <Skeleton />
-      <Skeleton animation="wave" />
-      <Skeleton animation={false} />
-    </Box> : totalResults > 0 ? <WrappedTable /> : <h1>No Data Found</h1>}
+        <Box sx={{ width: 300 }}>
+          <Skeleton />
+          <Skeleton animation="wave" />
+          <Skeleton animation={false} />
+        </Box> : totalResults > 0 ? <WrappedTable /> : <h1>No Data Found</h1>}
     </Paper>
   );
 }

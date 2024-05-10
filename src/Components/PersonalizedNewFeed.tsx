@@ -10,8 +10,8 @@ import { reducer, initialState, ReducerState } from '../Reducer/ResultReducer'
 import { SEARCH_INITTATED } from '../Reducer/constant'
 
 interface Props {
-    search: (data: any) => void;
-  }
+  search: (data: any) => void;
+}
 
 export default function SelectSmall(props: Props) {
   const pervDataSources: string = localStorage?.getItem('dataSource') || '';
@@ -32,7 +32,7 @@ export default function SelectSmall(props: Props) {
   }
 
   const handleSearch = async () => {
-    const payload = {source, categories, authors, isLoading: true, rowsPerPage: 10, page: 1, dataSources };
+    const payload = { source, categories, authors, isLoading: true, rowsPerPage: 10, page: 1, dataSources };
     await dispatch({ type: SEARCH_INITTATED, payload });
     search(payload);
   };
@@ -45,14 +45,14 @@ export default function SelectSmall(props: Props) {
   const handleCategories = async (event: SelectChangeEvent) => {
     localStorage.setItem('categories', event.target.value);
     setCategories(event.target.value);
-    }
+  }
 
   const handleAuthors = async (event: React.ChangeEvent<HTMLInputElement>) => {
     localStorage.setItem('authors', event.target.value);
     setAuthors(event.target.value);
   };
 
-  const handleReset = () => { 
+  const handleReset = () => {
     localStorage.setItem('dataSource', '');
     localStorage.setItem('source', '');
     localStorage.setItem('categories', '');
@@ -64,7 +64,7 @@ export default function SelectSmall(props: Props) {
   };
 
   return (<>
-  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <InputLabel id="apiName">Data Sources</InputLabel>
       <Select
         labelId="apiName"
@@ -82,94 +82,94 @@ export default function SelectSmall(props: Props) {
       </Select>
     </FormControl>
     {(dataSources !== '' && dataSources !== 'nytimes') && <>
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id="sourcesName">Sources</InputLabel>
-      <Select
-        labelId="sourcesName"
-        id="source"
-        value={source}
-        label="sources"
-        onChange={handleSource}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={'bbc-news'}>BBC News</MenuItem>
-        <MenuItem value={'abc-news'}>ABC News</MenuItem>
-        <MenuItem value={'ansa'}>ANSA.it</MenuItem>
-        <MenuItem value={'argaam'}>Argaam</MenuItem>
-        <MenuItem value={'ars-technica'}>Ars Technica</MenuItem>
-        <MenuItem value={'ary-news'}>Ary News</MenuItem>
-        <MenuItem value={'associated-press'}>Associated Press</MenuItem>
-        <MenuItem value={'bloomberg'}>Bloomberg</MenuItem>
-      </Select>
-    </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="sourcesName">Sources</InputLabel>
+        <Select
+          labelId="sourcesName"
+          id="source"
+          value={source}
+          label="sources"
+          onChange={handleSource}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={'bbc-news'}>BBC News</MenuItem>
+          <MenuItem value={'abc-news'}>ABC News</MenuItem>
+          <MenuItem value={'ansa'}>ANSA.it</MenuItem>
+          <MenuItem value={'argaam'}>Argaam</MenuItem>
+          <MenuItem value={'ars-technica'}>Ars Technica</MenuItem>
+          <MenuItem value={'ary-news'}>Ary News</MenuItem>
+          <MenuItem value={'associated-press'}>Associated Press</MenuItem>
+          <MenuItem value={'bloomberg'}>Bloomberg</MenuItem>
+        </Select>
+      </FormControl>
 
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <InputLabel id="categoriesName">categories</InputLabel>
-      <Select
-        labelId="categoriesName"
-        id="categories"
-        value={categories}
-        label="categories"
-        onChange={handleCategories}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={'business'}>Business</MenuItem>
-        <MenuItem value={'sports'}>Sports</MenuItem>
-        <MenuItem value={'entertainment'}>Entertainment</MenuItem>
-        <MenuItem value={'health'}>Health</MenuItem>
-        <MenuItem value={'science'}>Science</MenuItem>
-        <MenuItem value={'technology'}>Technology</MenuItem>
-      </Select>
-    </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="categoriesName">categories</InputLabel>
+        <Select
+          labelId="categoriesName"
+          id="categories"
+          value={categories}
+          label="categories"
+          onChange={handleCategories}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={'business'}>Business</MenuItem>
+          <MenuItem value={'sports'}>Sports</MenuItem>
+          <MenuItem value={'entertainment'}>Entertainment</MenuItem>
+          <MenuItem value={'health'}>Health</MenuItem>
+          <MenuItem value={'science'}>Science</MenuItem>
+          <MenuItem value={'technology'}>Technology</MenuItem>
+        </Select>
+      </FormControl>
 
-    {dataSources === 'NewsAPI' && <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <InputLabel id="authorsName">authors</InputLabel>
-    <Input 
-        id="authors" 
-        name='authors' 
-        value={authors}
-        onChange={handleAuthors}
-    />
-    </FormControl>}
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <Button variant="outlined" disabled={(source === '' && categories === '')} onClick={handleSearch}>Search</Button>
-    </FormControl>
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <Button variant="outlined" onClick={handleReset}>Reset</Button>
-    </FormControl>
+      {dataSources === 'NewsAPI' && <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="authorsName">authors</InputLabel>
+        <Input
+          id="authors"
+          name='authors'
+          value={authors}
+          onChange={handleAuthors}
+        />
+      </FormControl>}
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <Button variant="outlined" disabled={(source === '' && categories === '')} onClick={handleSearch}>Search</Button>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <Button variant="outlined" onClick={handleReset}>Reset</Button>
+      </FormControl>
     </>}
 
     {(dataSources === 'nytimes') && <>
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-    <InputLabel id="categoriesName">categories</InputLabel>
-      <Select
-        labelId="categoriesName"
-        id="categories"
-        value={categories}
-        label="categories"
-        onChange={handleCategories}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={'business'}>Business</MenuItem>
-        <MenuItem value={'sports'}>Sports</MenuItem>
-        <MenuItem value={'entertainment'}>Entertainment</MenuItem>
-        <MenuItem value={'health'}>Health</MenuItem>
-        <MenuItem value={'science'}>Science</MenuItem>
-        <MenuItem value={'technology'}>Technology</MenuItem>
-      </Select>
-    </FormControl>
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="categoriesName">categories</InputLabel>
+        <Select
+          labelId="categoriesName"
+          id="categories"
+          value={categories}
+          label="categories"
+          onChange={handleCategories}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={'business'}>Business</MenuItem>
+          <MenuItem value={'sports'}>Sports</MenuItem>
+          <MenuItem value={'entertainment'}>Entertainment</MenuItem>
+          <MenuItem value={'health'}>Health</MenuItem>
+          <MenuItem value={'science'}>Science</MenuItem>
+          <MenuItem value={'technology'}>Technology</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <Button variant="outlined" disabled={(categories === '')} onClick={handleSearch}>Search</Button>
-    </FormControl>
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      </FormControl>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <Button variant="outlined" onClick={handleReset}>Reset</Button>
-    </FormControl>
-    </> }
+      </FormControl>
+    </>}
   </>);
 }

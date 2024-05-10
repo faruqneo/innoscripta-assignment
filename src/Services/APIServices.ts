@@ -4,7 +4,7 @@ export const NewsAPI_Service = async (source: string = '', categories: string = 
     try {
         const apiKey: string = 'apiKey=70b1e068f7c44d46a6060ec2b0c90adc';
         let url: string = 'https://newsapi.org/v2/top-headlines';
-        if(source !== '' || categories !== '') {
+        if (source !== '' || categories !== '') {
             url += `?sources=${source}&category=${categories}&page=${page}&pageSize=${pageSize}&${apiKey}`;
         }
         else {
@@ -21,7 +21,7 @@ export const TheGuardian_Service = async (source: string = '', categories: strin
     try {
         const apiKey: string = 'api-key=test';
         let url: string = 'https://content.guardianapis.com/search';
-        if(source !== '' || categories !== '') {
+        if (source !== '' || categories !== '') {
             url += `?sources=${source}&q=${categories}&page=${page}&page-size=${pageSize}&${apiKey}`;
         }
         else {
@@ -38,7 +38,7 @@ export const NewYorkTimes_Service = async (categories: string = '', page: number
     try {
         const apiKey: string = 'api-key=2OMHpKDtUsBDI3MsDJ7qHsB0l45rgOWx';
         let url: string = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-        if(categories !== '') {
+        if (categories !== '') {
             url += `?q=${categories}&page=${page}&${apiKey}`;
         }
         else {

@@ -14,7 +14,7 @@ function Loading() {
             clearInterval(timer);
         };
     }, []);
-    
+
     return (<Stack spacing={2} direction="row">
         <CircularProgress variant="determinate" value={progress} />
     </Stack>)
