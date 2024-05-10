@@ -217,7 +217,7 @@ function SearchResult(props: Props) {
     </TableRow>)
   }
 
-  const TableStrature = (props: any) => {
+  const TableStructure = (props: any) => {
     const { result } = props;
     return (<>
       <TableContainer sx={{ maxHeight: 550 }}>
@@ -243,7 +243,7 @@ function SearchResult(props: Props) {
       /></>)
   };
 
-  const WrappedTable = withSearch(TableStrature, rows, dataSources);
+  const WrappedTable = withSearch(TableStructure, rows, dataSources);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
