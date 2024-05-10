@@ -124,11 +124,10 @@ function SearchResult(props: Props) {
   const NewsAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-      {dataList
-        .map((row: any, index: number) => {
+      {dataList?.map((row: any, index: number) => {
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-              {newsAPIColumns.map((column) => {
+              {newsAPIColumns?.map((column) => {
                 const value = row[column?.id];
                 return (
                   <TableCell key={column.id} align={column.align}>{value}</TableCell>
@@ -143,11 +142,10 @@ function SearchResult(props: Props) {
   const TheGuardianAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-      {dataList
-        .map((row: any, index: number) => {
+      {dataList?.map((row: any, index: number) => {
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-              {theguardianAPIColumns.map((column) => {
+              {theguardianAPIColumns?.map((column) => {
                 const value = row[column?.id];
                 return (
                   <TableCell key={column.id} align={column.align}>{value}</TableCell>
@@ -162,11 +160,10 @@ function SearchResult(props: Props) {
   const NewYorkTimesAPIValues = (props: any) => {
     const { dataList } = props;
     return (<TableBody>
-      {dataList
-        .map((row: any, index: number) => {
+      {dataList?.map((row: any, index: number) => {
           return (
             <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-              {newYorkTimesAPIColumns.map((column) => {
+              {newYorkTimesAPIColumns?.map((column) => {
                 const value = row[column?.id];
                 return (
                   <TableCell key={column.id} align={column.align}>{value}</TableCell>
@@ -180,7 +177,7 @@ function SearchResult(props: Props) {
 
   const NewsAPIHeaders = () => {
     return (<TableRow>
-      {newsAPIColumns.map((column: NewsAPIColumn) => (
+      {newsAPIColumns?.map((column: NewsAPIColumn) => (
         <TableCell
           key={column.id}
           align={column.align}
@@ -194,7 +191,7 @@ function SearchResult(props: Props) {
 
   const TheGuardianAPIHeaders = () => {
     return (<TableRow>
-      {theguardianAPIColumns.map((column: TheGuardianColumn) => (
+      {theguardianAPIColumns?.map((column: TheGuardianColumn) => (
         <TableCell
           key={column.id}
           align={column.align}
@@ -208,7 +205,7 @@ function SearchResult(props: Props) {
 
   const NewYorkTimesAPIHeaders = () => {
     return (<TableRow>
-      {newYorkTimesAPIColumns.map((column: NewYorkTimesAPIColumn) => (
+      {newYorkTimesAPIColumns?.map((column: NewYorkTimesAPIColumn) => (
         <TableCell
           key={column.id}
           align={column.align}

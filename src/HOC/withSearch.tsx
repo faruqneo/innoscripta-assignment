@@ -1,4 +1,5 @@
 import React from "react";
+// import { debounce } from "lodash";
 
 interface withSearchProps {
   result: any[]
@@ -27,7 +28,7 @@ export const withSearch = (WrappedComponent: React.ComponentType<withSearchProps
 
     render() {
       const { searchTerm } = this.state;
-      const filteredProducts: any = this.filterPerson(searchTerm);
+      const filteredProducts: any =  this.filterPerson(searchTerm);
 
       return (
         <main className="containter">
