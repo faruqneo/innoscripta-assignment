@@ -136,7 +136,7 @@ export default function SelectSmall(props: Props) {
         />
       </FormControl>}
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <Button variant="outlined" disabled={(source === '' && categories === '')} onClick={handleSearch}>Search</Button>
+        <Button variant="outlined" disabled={(source === '' && categories === '')} onClick={handleSearch}>Save</Button>
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <Button variant="outlined" onClick={handleReset}>Reset</Button>
@@ -165,7 +165,7 @@ export default function SelectSmall(props: Props) {
         </Select>
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <Button variant="outlined" disabled={(categories === '')} onClick={handleSearch}>Search</Button>
+        <Button variant="outlined" disabled={(categories === '')} onClick={handleSearch}>Save</Button>
       </FormControl>
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <Button variant="outlined" onClick={handleReset}>Reset</Button>
