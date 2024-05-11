@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+# Documentation:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Ensure that Docker is installed on your system. You can download and install Docker Desktop from the official Docker website: https://www.docker.com/products/docker-desktop
+## Pull the Docker Image:
 
-## Available Scripts
+Open a terminal or command prompt.
+ Run the following command to pull the Docker image from Docker Hub:
 
-In the project directory, you can run:
+<pre>
+docker pull neofaruq/innoscripta-assignment
+</pre>
 
-### `yarn start`
+### Run the Docker Container:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+After pulling the image, you can run a container using the following command:
+<pre>
+docker run -p 3000:3000 neofaruq/innoscripta-assignment
+</pre>
+This command will start the Docker container and map port 3000 of the container to port 3000 on your local machine.
+### Access Your React Application:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Once the container is running, you can access your React application in a web browser by navigating to `http://localhost:3000`.
+### Stopping the Container:
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+To stop the running Docker container, you can press Ctrl + C in the terminal where it's running. This will stop the container gracefully.
+Alternatively, you can run the following command in a new terminal window:
+```
+docker stop <container_id>
+```
+Replace <container_id> with the ID of the running container, which you can find by running docker ps.
