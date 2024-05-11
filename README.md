@@ -7,14 +7,14 @@ Open a terminal or command prompt.
  Run the following command to pull the Docker image from Docker Hub:
 
 <pre>
-docker pull neofaruq/innoscripta-assignment
+docker pull neofaruq/innoscripta-news-assignment
 </pre>
 
 ### Run the Docker Container:
 
 After pulling the image, you can run a container using the following command:
 <pre>
-docker run -p 3000:3000 neofaruq/innoscripta-assignment
+docker run -p 3000:3000 neofaruq/innoscripta-news-assignment
 </pre>
 This command will start the Docker container and map port 3000 of the container to port 3000 on your local machine.
 ### Access Your React Application:
