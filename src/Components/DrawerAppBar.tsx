@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Modal from './Modal';
 
 import PersonalizedNews from './PersonalizedNewFeed';
 import SearchResult from './SearchResult';
@@ -32,6 +33,13 @@ export default function DrawerAppBar(props: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [state, setState] = useState({});
+  const [isShow, setIsShow] = React.useState<boolean>(false);
+
+  const dataSources: string = localStorage?.getItem('dataSource') || '';
+
+  React.useEffect(() => {
+    if (dataSources === '') setIsShow(true);
+  }, [dataSources]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -46,30 +54,29 @@ export default function DrawerAppBar(props: Props) {
     if (data) setState(data);
   };
 
-  const drawer = (
-    <>{isSearch ? <Box onClick={() => handleSearchToggle(null)} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        Personalized news feed
-      </Typography>
-      <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary={'Home'} onClick={() => handleSearchToggle(null)} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box> : <></>}</>
-  );
+  const drawer = (<Box onClick={() => handleSearchToggle(null)} sx={{ textAlign: 'center' }}>
+    <Typography variant="h6" sx={{ my: 2 }}>
+      Personalized news feed
+    </Typography>
+    <Divider />
+    <List>
+      <ListItem disablePadding>
+        <ListItemButton sx={{ textAlign: 'center' }}>
+          <ListItemText primary={!isSearch ? 'Setting': 'Home'} onClick={() => handleSearchToggle(null)} />
+        </ListItemButton>
+      </ListItem>
+    </List>
+  </Box>);
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
+      {isShow && <Modal open={isShow} handleClose={() => setIsShow(false)} handleAgree={() => { setIsShow(false); setIsSearch(true) }} />}
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
-          {isSearch && <IconButton
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -77,7 +84,7 @@ export default function DrawerAppBar(props: Props) {
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
-          </IconButton>}
+          </IconButton>
           <Typography
             variant="h6"
             component="div"
@@ -85,12 +92,12 @@ export default function DrawerAppBar(props: Props) {
           >
             Personalized news feed
           </Typography>
-          {isSearch && <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Button sx={{ color: '#fff' }} onClick={() => handleSearchToggle(null)}>Home</Button>
-          </Box>}
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Button sx={{ color: '#fff' }} onClick={() => handleSearchToggle(null)}>{!isSearch ? 'Setting': 'Home'}</Button>
+          </Box>
         </Toolbar>
       </AppBar>
-      {isSearch && <nav>
+      <nav>
         <Drawer
           container={container}
           variant="temporary"
@@ -106,10 +113,10 @@ export default function DrawerAppBar(props: Props) {
         >
           {drawer}
         </Drawer>
-      </nav>}
+      </nav>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-        {isSearch ? <SearchResult initState={state} /> : <PersonalizedNews search={(data) => handleSearchToggle(data)} />}
+        {!isSearch ? <SearchResult initState={state} /> : <PersonalizedNews search={(data) => handleSearchToggle(data)} />}
       </Box>
     </Box>
   );

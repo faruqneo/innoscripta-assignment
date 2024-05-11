@@ -26,18 +26,18 @@ interface Props {
 
 function SearchResult(props: Props) {
   const { initState } = props;
-  const [state, dispatch] = React.useReducer(reducer, initState);
+  const source: string = localStorage?.getItem('source') || '';
+  const categories: string = localStorage?.getItem('categories') || '';
+  const authors: string = localStorage?.getItem('authors') || '';
+  const dataSources: string = localStorage?.getItem('dataSource') || '';
+  const init = { ...initState, source, categories, authors, dataSources };
+  const [state, dispatch] = React.useReducer(reducer, init);
   const [page, setPage] = React.useState<number>(state.page || 0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(state.rowsPerPage || 10);
   const [rows, setRows] = React.useState<any[]>([]);
   const [totalResults, setTotalResults] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [isError, setIsError] = React.useState<any>({ message: '', status: false });
-
-  const source: string = state.source;
-  const categories: string = state.categories;
-  const authors: string = state.authors;
-  const dataSources: string = state.dataSources;
 
   const FetchingAPI = React.useCallback((source: string, categories: string, authors: string, page: number = 1, pageSize: number = 10) => {
     setIsLoading(true);
@@ -102,8 +102,9 @@ function SearchResult(props: Props) {
   }, [dataSources]);
 
   React.useEffect(() => {
-    FetchingAPI(source, categories, authors);
-  }, [source, categories, authors, FetchingAPI]);
+    if(dataSources !== '') FetchingAPI(source, categories, authors);
+  }, [dataSources, source, categories, authors, FetchingAPI]);
+
 
 
   const handleChangePage = (event: unknown, newPage: number) => {
