@@ -8,12 +8,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import { reducer, initialState, ReducerState } from '../Reducer/ResultReducer'
 import { SEARCH_INITTATED } from '../Reducer/constant'
+import { SERVICES_LIST } from '../Interface/constant'
+import { PersonalizedNewFeedProps } from '../Interface/type';
 
-interface Props {
-  search: (data: any) => void;
-}
-
-export default function SelectSmall(props: Props) {
+export default function SelectSmall(props: PersonalizedNewFeedProps) {
   const pervDataSources: string = localStorage?.getItem('dataSource') || '';
   const pervSources: string = localStorage?.getItem('source') || '';
   const pervCategories: string = localStorage?.getItem('categories') || '';
@@ -76,9 +74,9 @@ export default function SelectSmall(props: Props) {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={'NewsAPI'}>NewsAPI</MenuItem>
-        <MenuItem value={'theguardian'}>The Guardian</MenuItem>
-        <MenuItem value={'nytimes'}>New York Times</MenuItem>
+        <MenuItem value={SERVICES_LIST.NewsAPI}>NewsAPI</MenuItem>
+        <MenuItem value={SERVICES_LIST.TheGuardian}>The Guardian</MenuItem>
+        <MenuItem value={SERVICES_LIST.NewYorkTimes}>New York Times</MenuItem>
       </Select>
     </FormControl>
     {(dataSources !== '' && dataSources !== 'nytimes') && <>
@@ -126,7 +124,7 @@ export default function SelectSmall(props: Props) {
         </Select>
       </FormControl>
 
-      {dataSources === 'NewsAPI' && <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      {dataSources === SERVICES_LIST.NewsAPI && <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
         <InputLabel id="authorsName">authors</InputLabel>
         <Input
           id="authors"

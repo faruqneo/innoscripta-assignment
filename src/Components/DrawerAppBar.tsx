@@ -17,18 +17,11 @@ import Modal from './Modal';
 
 import PersonalizedNews from './PersonalizedNewFeed';
 import SearchResult from './SearchResult';
-
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
+import { DrawerProps } from '../Interface/type';
 
 const drawerWidth = 240;
 
-export default function DrawerAppBar(props: Props) {
+export default function DrawerAppBar(props: DrawerProps) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);

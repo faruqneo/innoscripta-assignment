@@ -18,14 +18,11 @@ import { withSearch } from '../HOC/withSearch';
 
 import { reducer } from "../Reducer/ResultReducer";
 import { SEARCH_INPROGRESS, SEARCH_FINISHED } from "../Reducer/constant";
-import { articles, NewsAPICreateData, NewYorkTimesAPICreateData, newYorkTimes, theguardianAPICreateData, theguardian, newsAPIColumns, NewYorkTimesAPIColumn, TheGuardianColumn, theguardianAPIColumns, newYorkTimesAPIColumns, NewsAPIColumn } from '../Interface/type'
+import { articles, newYorkTimes, theguardian, NewYorkTimesAPIColumn, TheGuardianColumn, NewsAPIColumn, SearchResultProps } from '../Interface/type'
 import { NewsAPI_Service, TheGuardian_Service, NewYorkTimes_Service } from '../Services/APIServices';
+import { SERVICES_LIST, NewsAPICreateData, theguardianAPICreateData, NewYorkTimesAPICreateData, newsAPIColumns, theguardianAPIColumns, newYorkTimesAPIColumns } from '../Interface/constant';
 
-interface Props {
-  initState: any;
-}
-
-function SearchResult(props: Props) {
+function SearchResult(props: SearchResultProps) {
   const { initState } = props;
   const source: string = localStorage?.getItem('source') || '';
   const categories: string = localStorage?.getItem('categories') || '';
@@ -43,7 +40,7 @@ function SearchResult(props: Props) {
   const FetchingAPI = React.useCallback((source: string, categories: string, authors: string, page: number = 1, pageSize: number = 10) => {
     setIsLoading(true);
     const serviceList: any = {};
-    serviceList['NewsAPI'] = () => {
+    serviceList[SERVICES_LIST.NewsAPI] = () => {
       NewsAPI_Service(source, categories, authors, page, pageSize)
         .then(res => {
           if (res?.status === 'ok') {
@@ -65,7 +62,7 @@ function SearchResult(props: Props) {
         })
         .catch();
     };
-    serviceList['theguardian'] = () => {
+    serviceList[SERVICES_LIST.TheGuardian] = () => {
       TheGuardian_Service(source, categories, authors, page, pageSize)
         .then(res => {
           const response = res?.response;
@@ -82,7 +79,7 @@ function SearchResult(props: Props) {
         })
         .catch();
     };
-    serviceList['nytimes'] = () => {
+    serviceList[SERVICES_LIST.NewYorkTimes] = () => {
       NewYorkTimes_Service(categories, page)
         .then(res => {
           const response = res?.response;
@@ -225,17 +222,17 @@ function SearchResult(props: Props) {
       <TableContainer sx={{ maxHeight: 550 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            {dataSources === 'NewsAPI' && <NewsAPIHeaders />}
-            {dataSources === 'theguardian' && <TheGuardianAPIHeaders />}
-            {dataSources === 'nytimes' && <NewYorkTimesAPIHeaders />}
+            {dataSources === SERVICES_LIST.NewsAPI && <NewsAPIHeaders />}
+            {dataSources === SERVICES_LIST.TheGuardian && <TheGuardianAPIHeaders />}
+            {dataSources === SERVICES_LIST.NewYorkTimes && <NewYorkTimesAPIHeaders />}
           </TableHead>
-          {dataSources === 'NewsAPI' && <NewsAPIValues dataList={result} />}
-          {dataSources === 'theguardian' && <TheGuardianAPIValues dataList={result} />}
-          {dataSources === 'nytimes' && <NewYorkTimesAPIValues dataList={result} />}
+          {dataSources === SERVICES_LIST.NewsAPI && <NewsAPIValues dataList={result} />}
+          {dataSources === SERVICES_LIST.TheGuardian && <TheGuardianAPIValues dataList={result} />}
+          {dataSources === SERVICES_LIST.NewYorkTimes && <NewYorkTimesAPIValues dataList={result} />}
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={dataSources === 'nytimes' ? [] : [10, 25, 100]}
+        rowsPerPageOptions={dataSources === SERVICES_LIST.NewYorkTimes ? [] : [10, 25, 100]}
         component="div"
         count={totalResults}
         rowsPerPage={rowsPerPage}
